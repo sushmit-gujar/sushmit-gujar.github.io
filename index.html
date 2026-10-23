@@ -287,14 +287,28 @@
       <div class="section-head reveal">
         <p class="kicker">Open source · personal projects</p>
         <h2 id="projects-title">Projects</h2>
-        <p class="section-sub">Independent, MIT-licensed projects I built in my own time, separate from the employer work above. Both run end to end with no paid API keys, and every number below comes from a reproducible run that is committed in the repo.</p>
+        <p class="section-sub">Independent, MIT-licensed projects I built in my own time, separate from the employer work above. They run end to end with no paid API keys, and every number below comes from a reproducible run that is committed in the repo.</p>
       </div>
 
       <div class="cases projs">
         <article class="case proj reveal" aria-labelledby="p1">
           <header>
-            <p class="case-tag"><span class="dot d1"></span>Open source · GraphRAG · LLM evaluation</p>
-            <h3 id="p1">hopscope</h3>
+            <p class="case-tag"><span class="dot d1"></span>Open source · AI security · Supply chain</p>
+            <h3 id="p1">loadsafe</h3>
+            <p class="proj-pitch">A supply-chain security scanner for ML models. It audits pickle, PyTorch, safetensors, ONNX, GGUF and Keras artifacts — and the Hugging Face repos that ship them — before anything is loaded, the way dependency scanners audit packages.</p>
+          </header>
+          <dl>
+            <div><dt>Demonstrates</dt><dd>Static analysis of serialized models without loading them: a symbolic pickle machine that resolves <code>STACK_GLOBAL</code>/memo tricks and attributes every <code>REDUCE</code> to a callable, plus header/metadata checks for safetensors, ONNX, GGUF and Keras Lambda layers. Repo checks for <code>trust_remote_code</code>, unpinned revisions and dangerous consumer-side loaders. SARIF, CycloneDX ML-BOM, and mappings to OWASP LLM03/04 and MITRE ATLAS.</dd></div>
+            <div><dt>Results</dt><dd>On an inert 18-attack / 8-benign PoC corpus generated at eval time: <strong>100% detection, 0% false positives</strong> (picklescan 33%/0%, modelscan 44%/38% on the same set). On five real public Hugging Face checkpoints (850 MB of pickle + safetensors weights): <strong>0% false-positive rate</strong> at HIGH+ and <strong>~3.2 GB/s</strong> scan throughput. Ships a GitHub Action that fails the build on high findings.</dd></div>
+          </dl>
+          <ul class="stack" aria-label="Stack"><li>Python</li><li>pickletools</li><li>SARIF 2.1</li><li>CycloneDX 1.6 ML-BOM</li><li>OWASP LLM Top 10</li><li>MITRE ATLAS</li><li>pytest · GitHub Actions</li></ul>
+          <p class="proj-links"><a class="btn btn-ghost btn-sm" href="https://github.com/sushmit-gujar/loadsafe" target="_blank" rel="noopener">GitHub repo <span aria-hidden="true">↗</span></a></p>
+        </article>
+
+        <article class="case proj reveal" aria-labelledby="p2">
+          <header>
+            <p class="case-tag"><span class="dot d2"></span>Open source · GraphRAG · LLM evaluation</p>
+            <h3 id="p2">hopscope</h3>
             <p class="proj-pitch">A benchmark harness that answers one question: when does knowledge-graph retrieval actually beat vector RAG on multi-hop questions?</p>
           </header>
           <dl>
@@ -305,10 +319,10 @@
           <p class="proj-links"><a class="btn btn-ghost btn-sm" href="https://github.com/sushmit-gujar/hopscope" target="_blank" rel="noopener">GitHub repo <span aria-hidden="true">↗</span></a><a class="btn btn-ghost btn-sm" href="https://sushmit-gujar.github.io/hopscope/" target="_blank" rel="noopener">Live results explorer <span aria-hidden="true">↗</span></a></p>
         </article>
 
-        <article class="case proj reveal" aria-labelledby="p2">
+        <article class="case proj reveal" aria-labelledby="p3">
           <header>
-            <p class="case-tag"><span class="dot d2"></span>Open source · MCP · Guardrails · Governance</p>
-            <h3 id="p2">mcp-warden</h3>
+            <p class="case-tag"><span class="dot d3"></span>Open source · MCP · Guardrails · Governance</p>
+            <h3 id="p3">mcp-warden</h3>
             <p class="proj-pitch">A policy-as-code security gateway for the Model Context Protocol. It sits between any agent and any MCP server and enforces least privilege, with an audit trail you can hand to QA.</p>
           </header>
           <dl>
