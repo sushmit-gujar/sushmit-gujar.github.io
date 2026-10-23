@@ -35,7 +35,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@800&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/sushmit-480.webp" type="image/webp">
   <link rel="stylesheet" href="styles.css">
 
@@ -89,6 +89,7 @@
         <ul class="nav-links" id="nav-links">
           <li><a href="#work">Case studies</a></li>
           <li><a href="#projects">Projects</a></li>
+          <li><a href="projects/" class="nav-lab"><span class="lab-dot" aria-hidden="true"></span>Open-source lab</a></li>
           <li><a href="#experience">Experience</a></li>
           <li><a href="#skills">Skills</a></li>
           <li><a href="#education">Education</a></li>
@@ -290,8 +291,15 @@
         <p class="section-sub">Independent, MIT-licensed projects I built in my own time, separate from the employer work above. They run end to end with no paid API keys, and every number below comes from a reproducible run that is committed in the repo.</p>
       </div>
 
+      <a class="lab-cta reveal" href="projects/">
+        <span class="lab-cta-core" aria-hidden="true">SG</span>
+        <span class="lab-cta-wire" aria-hidden="true"><i></i></span>
+        <span class="lab-cta-text"><span class="lab-cta-k">Interactive</span><strong>Enter the open-source lab</strong><span class="lab-cta-sub">Architecture pipelines, live results and repos, wired up in one circuit map</span></span>
+        <span class="lab-cta-go" aria-hidden="true">→</span>
+      </a>
+
       <div class="cases projs">
-        <article class="case proj reveal" aria-labelledby="p1">
+        <article class="case proj reveal" data-neon="cyan" aria-labelledby="p1">
           <header>
             <p class="case-tag"><span class="dot d1"></span>Open source · AI security · Supply chain</p>
             <h3 id="p1">loadsafe</h3>
@@ -302,10 +310,10 @@
             <div><dt>Results</dt><dd>On an inert 18-attack / 8-benign PoC corpus generated at eval time: <strong>100% detection, 0% false positives</strong> (picklescan 33%/0%, modelscan 44%/38% on the same set). On five real public Hugging Face checkpoints (850 MB of pickle + safetensors weights): <strong>0% false-positive rate</strong> at HIGH+ and <strong>~3.2 GB/s</strong> scan throughput. Ships a GitHub Action that fails the build on high findings.</dd></div>
           </dl>
           <ul class="stack" aria-label="Stack"><li>Python</li><li>pickletools</li><li>SARIF 2.1</li><li>CycloneDX 1.6 ML-BOM</li><li>OWASP LLM Top 10</li><li>MITRE ATLAS</li><li>pytest · GitHub Actions</li></ul>
-          <p class="proj-links"><a class="btn btn-ghost btn-sm" href="https://github.com/sushmit-gujar/loadsafe" target="_blank" rel="noopener">GitHub repo <span aria-hidden="true">↗</span></a></p>
+          <p class="proj-links"><a class="btn btn-ghost btn-sm" href="https://github.com/sushmit-gujar/loadsafe" target="_blank" rel="noopener">GitHub repo <span aria-hidden="true">↗</span></a><a class="btn btn-ghost btn-sm" href="projects/#loadsafe">Pipeline &amp; results <span aria-hidden="true">→</span></a></p>
         </article>
 
-        <article class="case proj reveal" aria-labelledby="p2">
+        <article class="case proj reveal" data-neon="lime" aria-labelledby="p2">
           <header>
             <p class="case-tag"><span class="dot d2"></span>Open source · GraphRAG · LLM evaluation</p>
             <h3 id="p2">hopscope</h3>
@@ -316,10 +324,10 @@
             <div><dt>Results</dt><dd>On 1,000 HotpotQA questions over a pooled 9,771-passage corpus, graph + dense PPR retrieved the full evidence chain <strong>+4.7 pts</strong> more often than vector RAG (95% CI +2.9 to +6.5), and <strong>+5.8 pts</strong> on bridge questions. It costs <strong>2.4×</strong> retrieval latency. Graph-only retrieval was 43 pts worse, and 1-hop expansion helped bridge questions but hurt comparison questions, so routing by query type matters.</dd></div>
           </dl>
           <ul class="stack" aria-label="Stack"><li>Python</li><li>ONNX Runtime</li><li>bge-small embeddings</li><li>BM25</li><li>Personalized PageRank</li><li>SciPy</li><li>pytest · GitHub Actions</li></ul>
-          <p class="proj-links"><a class="btn btn-ghost btn-sm" href="https://github.com/sushmit-gujar/hopscope" target="_blank" rel="noopener">GitHub repo <span aria-hidden="true">↗</span></a><a class="btn btn-ghost btn-sm" href="https://sushmit-gujar.github.io/hopscope/" target="_blank" rel="noopener">Live results explorer <span aria-hidden="true">↗</span></a></p>
+          <p class="proj-links"><a class="btn btn-ghost btn-sm" href="https://github.com/sushmit-gujar/hopscope" target="_blank" rel="noopener">GitHub repo <span aria-hidden="true">↗</span></a><a class="btn btn-ghost btn-sm" href="projects/#hopscope">Pipeline &amp; results <span aria-hidden="true">→</span></a><a class="btn btn-ghost btn-sm" href="https://sushmit-gujar.github.io/hopscope/" target="_blank" rel="noopener">Live results explorer <span aria-hidden="true">↗</span></a></p>
         </article>
 
-        <article class="case proj reveal" aria-labelledby="p3">
+        <article class="case proj reveal" data-neon="magenta" aria-labelledby="p3">
           <header>
             <p class="case-tag"><span class="dot d3"></span>Open source · MCP · Guardrails · Governance</p>
             <h3 id="p3">mcp-warden</h3>
@@ -330,7 +338,7 @@
             <div><dt>Results</dt><dd><strong>30/30</strong> red-team attacks stopped with <strong>12/12</strong> benign calls allowed on its own suite. A held-out suite exposed limits: <strong>3/8</strong> stopped with rules and <strong>6/8</strong> with the learned detector. Rules ran at a <strong>2%</strong> false-positive rate on a public injection dataset, where the learned model flagged 75% of benign prompts. Overhead is <strong>+0.8 ms</strong> p50 per tool call.</dd></div>
           </dl>
           <ul class="stack" aria-label="Stack"><li>Python</li><li>MCP SDK v2</li><li>JSON-RPC</li><li>YAML policy-as-code</li><li>NumPy classifier</li><li>pytest · GitHub Actions</li></ul>
-          <p class="proj-links"><a class="btn btn-ghost btn-sm" href="https://github.com/sushmit-gujar/mcp-warden" target="_blank" rel="noopener">GitHub repo <span aria-hidden="true">↗</span></a></p>
+          <p class="proj-links"><a class="btn btn-ghost btn-sm" href="https://github.com/sushmit-gujar/mcp-warden" target="_blank" rel="noopener">GitHub repo <span aria-hidden="true">↗</span></a><a class="btn btn-ghost btn-sm" href="projects/#mcp-warden">Pipeline &amp; results <span aria-hidden="true">→</span></a></p>
         </article>
       </div>
     </section>

@@ -1,0 +1,99 @@
+{
+  "owner": "Sushmit Gujar",
+  "categories": [
+    { "id": "security", "label": "AI security" },
+    { "id": "rag", "label": "RAG & evals" }
+  ],
+  "projects": [
+    {
+      "id": "loadsafe",
+      "name": "loadsafe",
+      "category": "security",
+      "color": "cyan",
+      "tagline": "ML model supply-chain security scanner",
+      "pitch": "Audits pickle, PyTorch, joblib, NumPy, safetensors, ONNX, GGUF and Keras artifacts, plus the Hugging Face repos that ship them, before anything gets loaded. Dependency scanners do the same for packages.",
+      "highlights": [
+        "Symbolic pickle machine resolves STACK_GLOBAL / memo tricks and attributes every REDUCE to a callable",
+        "Repo checks: trust_remote_code, unpinned revisions, dangerous consumer-side loaders",
+        "SARIF 2.1 + CycloneDX ML-BOM, mapped to OWASP LLM03/04 and MITRE ATLAS"
+      ],
+      "stats": [
+        { "value": 100, "suffix": "%", "label": "detection · 26-file PoC corpus", "note": "picklescan 33% · modelscan 44%" },
+        { "value": 0, "suffix": "%", "label": "false-positive rate · same corpus" },
+        { "value": 0, "suffix": "%", "label": "HIGH+ FPR · 5 public HF checkpoints", "note": "850.6 MB of weights" },
+        { "value": 3.2, "decimals": 1, "prefix": "~", "suffix": " GB/s", "label": "scan throughput" }
+      ],
+      "pipeline": [
+        { "label": "Model artifact", "sub": ".pt · .pkl · .onnx · .gguf · HF repo" },
+        { "label": "Opcode disassembly", "sub": "symbolic pickle VM" },
+        { "label": "Rule engine", "sub": "callables · headers · loaders" },
+        { "label": "SARIF / ML-BOM", "sub": "OWASP LLM03/04 · ATLAS" },
+        { "label": "CI gate", "sub": "GitHub Action fails on HIGH" }
+      ],
+      "stack": ["Python", "pickletools", "SARIF 2.1", "CycloneDX 1.6", "OWASP LLM Top 10", "MITRE ATLAS", "GitHub Actions"],
+      "links": [
+        { "label": "GitHub repo", "url": "https://github.com/sushmit-gujar/loadsafe", "primary": true }
+      ]
+    },
+    {
+      "id": "mcp-warden",
+      "name": "mcp-warden",
+      "category": "security",
+      "color": "magenta",
+      "tagline": "Policy-as-code security gateway for MCP",
+      "pitch": "Sits between any agent and any Model Context Protocol server and enforces least privilege. Every decision lands in an audit trail you can hand to QA.",
+      "highlights": [
+        "YAML tool allow-lists and argument rules, PII / secret redaction, prompt-injection scanning",
+        "Tool-definition pinning against rug pulls; approvals bound to the exact call",
+        "Hash-chained, tamper-evident audit log plus red-team, held-out and public-dataset evals"
+      ],
+      "stats": [
+        { "value": 30, "suffix": "/30", "label": "red-team attacks stopped · own suite" },
+        { "value": 12, "suffix": "/12", "label": "benign calls allowed · own suite" },
+        { "value": 6, "suffix": "/8", "label": "held-out attacks stopped · ensemble", "note": "rules alone: 3/8" },
+        { "value": 0.78, "decimals": 2, "prefix": "+", "suffix": " ms", "label": "p50 overhead per tool call" }
+      ],
+      "pipeline": [
+        { "label": "Agent", "sub": "any MCP client" },
+        { "label": "Policy", "sub": "YAML allow-lists · arg rules" },
+        { "label": "Redact / scan", "sub": "PII · secrets · injection" },
+        { "label": "MCP server", "sub": "pinned tool definitions" },
+        { "label": "Audit log", "sub": "hash-chained · tamper-evident" }
+      ],
+      "stack": ["Python", "MCP SDK", "JSON-RPC", "YAML policy-as-code", "NumPy classifier", "pytest", "GitHub Actions"],
+      "links": [
+        { "label": "GitHub repo", "url": "https://github.com/sushmit-gujar/mcp-warden", "primary": true }
+      ]
+    },
+    {
+      "id": "hopscope",
+      "name": "hopscope",
+      "category": "rag",
+      "color": "lime",
+      "tagline": "GraphRAG vs vector RAG, measured on multi-hop QA",
+      "pitch": "A key-free benchmark harness built around one question: when does knowledge-graph retrieval actually beat vector RAG on multi-hop questions, and what does it cost?",
+      "highlights": [
+        "HippoRAG-style entity graph with Personalized PageRank, built without an LLM",
+        "Complete-evidence-chain metrics, answer attribution, disjoint dev/test tuning",
+        "Paired bootstrap confidence intervals; routing by query type matters"
+      ],
+      "stats": [
+        { "value": 0.746, "decimals": 3, "label": "Full@5 · graph + dense PPR", "note": "vector RAG: 0.699" },
+        { "value": 4.7, "decimals": 1, "prefix": "+", "suffix": " pts", "label": "complete evidence chain", "note": "95% CI +2.9 … +6.5" },
+        { "value": 1000, "label": "HotpotQA questions", "note": "9,771 pooled passages" },
+        { "value": 2.4, "decimals": 1, "suffix": "×", "label": "latency cost", "note": "61 vs 26 ms p50" }
+      ],
+      "pipeline": [
+        { "label": "Question", "sub": "HotpotQA multi-hop" },
+        { "label": "Retrievers", "branches": ["Vector", "Graph", "Hybrid"] },
+        { "label": "Reader", "sub": "extractive QA · ONNX" },
+        { "label": "Eval", "sub": "Full@5 · F1 · bootstrap CI" }
+      ],
+      "stack": ["Python", "ONNX Runtime", "bge-small", "BM25", "Personalized PageRank", "SciPy", "GitHub Actions"],
+      "links": [
+        { "label": "GitHub repo", "url": "https://github.com/sushmit-gujar/hopscope", "primary": true },
+        { "label": "Live results explorer", "url": "https://sushmit-gujar.github.io/hopscope/" }
+      ]
+    }
+  ]
+}

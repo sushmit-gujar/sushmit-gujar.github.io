@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open-source lab — Sushmit Gujar · AI security &amp; RAG evaluation projects</title>
+  <meta name="description" content="Open-source AI security and RAG-evaluation projects by Sushmit Gujar: loadsafe (ML model supply-chain scanner), mcp-warden (MCP security gateway) and hopscope (GraphRAG vs vector RAG benchmark).">
+  <meta name="author" content="Sushmit Prashant Gujar">
+  <meta name="theme-color" content="#05060b">
+  <meta name="color-scheme" content="dark">
+  <link rel="canonical" href="https://sushmit-gujar.github.io/projects/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sushmit-gujar.github.io/projects/">
+  <meta property="og:title" content="Open-source lab — Sushmit Gujar">
+  <meta property="og:description" content="AI security and RAG-evaluation projects with reproducible, committed results.">
+  <meta property="og:image" content="https://sushmit-gujar.github.io/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../favicon.ico" sizes="32x32">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" href="projects.json" as="fetch" crossorigin>
+  <link rel="stylesheet" href="lab.css">
+</head>
+<body>
+  <a class="skip" href="#lab">Skip to projects</a>
+  <div class="backdrop" aria-hidden="true"><span class="aura a1"></span><span class="aura a2"></span><span class="aura a3"></span></div>
+
+  <header class="topbar">
+    <a class="back" href="../#projects"><span aria-hidden="true">←</span> Portfolio</a>
+    <a class="mark" href="../" aria-label="Sushmit Gujar, portfolio home"><span>SG</span></a>
+    <nav class="toplinks" aria-label="Profiles">
+      <a href="https://github.com/sushmit-gujar" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/sushmitt/" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </header>
+
+  <main id="lab">
+    <section class="hero" aria-labelledby="title">
+      <p class="eyebrow"><span class="blip" aria-hidden="true"></span>sushmit-gujar <span class="sep">//</span> open-source lab</p>
+      <h1 id="title" class="neon-title"><span class="t1">Open-source</span> <span class="t2">lab</span></h1>
+      <p class="lede">Independent, MIT-licensed projects in <b class="hl-c">AI security</b> and <b class="hl-l">RAG evaluation</b>. They run end to end with no paid API keys, and every number on this page comes from a reproducible run committed in the repo.</p>
+      <div class="filters" role="group" aria-label="Filter projects by category" id="filters">
+        <button type="button" class="chip-btn" data-filter="all" aria-pressed="true">All</button>
+      </div>
+      <p class="sr-only" id="live" aria-live="polite"></p>
+    </section>
+
+    <section class="hub" id="hub" aria-label="Project network">
+      <svg class="wires" id="wires" aria-hidden="true"></svg>
+      <div class="core" id="core">
+        <div class="core-ring r1" aria-hidden="true"></div>
+        <div class="core-ring r2" aria-hidden="true"></div>
+        <div class="core-chip">
+          <span class="core-k">core</span>
+          <span class="core-name">SUSHMIT</span>
+          <span class="core-sub">Senior AI/ML Engineer</span>
+        </div>
+      </div>
+      <ul class="nodes" id="nodes"></ul>
+    </section>
+
+    <section class="panels" id="panels" aria-label="Project details"></section>
+
+    <noscript>
+      <div class="nojs">
+        <p>Project details load from <a href="projects.json">projects.json</a>. Repos:
+        <a href="https://github.com/sushmit-gujar/loadsafe">loadsafe</a> ·
+        <a href="https://github.com/sushmit-gujar/mcp-warden">mcp-warden</a> ·
+        <a href="https://github.com/sushmit-gujar/hopscope">hopscope</a>
+        (<a href="https://sushmit-gujar.github.io/hopscope/">demo</a>)</p>
+      </div>
+    </noscript>
+  </main>
+
+  <footer class="foot">
+    <p><span class="mono">sys.status</span> <span class="ok">● online</span> · Plain HTML/CSS/JS, rendered from <a href="projects.json">projects.json</a></p>
+    <p><a href="../">sushmit-gujar.github.io</a> · <a href="https://github.com/sushmit-gujar" target="_blank" rel="noopener">github.com/sushmit-gujar</a> · <a href="https://www.linkedin.com/in/sushmitt/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+
+  <script src="lab.js" defer></script>
+</body>
+</html>
