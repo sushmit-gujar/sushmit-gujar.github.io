@@ -9,6 +9,7 @@
   --magenta: #ff2fd2;
   --violet: #a46bff;
   --lime: #b8ff3c;
+  --amber: #ffb020;
   --c: var(--cyan);
   --f-display: "Orbitron", "Space Grotesk", system-ui, sans-serif;
   --f-sans: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -20,6 +21,7 @@
 [data-color="magenta"] { --c: var(--magenta); --c-rgb: 255,47,210; }
 [data-color="lime"] { --c: var(--lime); --c-rgb: 184,255,60; }
 [data-color="violet"] { --c: var(--violet); --c-rgb: 164,107,255; }
+[data-color="amber"] { --c: var(--amber); --c-rgb: 255,176,32; }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }

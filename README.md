@@ -17,7 +17,7 @@ Append an object to the `projects` array in `projects/projects.json`. Its node, 
   "id": "my-project",                 // used for the #anchor and wire id
   "name": "my-project",
   "category": "security",             // must match an id in "categories" (add a new category there if needed)
-  "color": "cyan",                    // cyan | magenta | lime | violet
+  "color": "cyan",                    // cyan | magenta | lime | violet | amber
   "tagline": "One-line description",
   "pitch": "Two or three sentences.",
   "highlights": ["Bullet", "Bullet"],
@@ -37,4 +37,4 @@ Append an object to the `projects` array in `projects/projects.json`. Its node, 
 }
 ```
 
-The first stat also appears on the project's node in the circuit map. Only use numbers from reproducible, committed results. Category filters are built from `categories` (a category with no projects is hidden). The page respects `prefers-reduced-motion`: no flicker, pulses or counters, just a static glow. Also add a matching card to the `#projects` section of `index.html` (set `data-neon="cyan|lime|magenta"` on the `<article>`).
+The first stat also appears on the project's node in the circuit map. Only use numbers from reproducible, committed results. Category filters are built from `categories` (a category with no projects is hidden). The page respects `prefers-reduced-motion`: no flicker, pulses or counters, just a static glow. Also add a matching card to the `#projects` section of `index.html` (set `data-neon="cyan|lime|magenta|amber"` on the `<article>`).

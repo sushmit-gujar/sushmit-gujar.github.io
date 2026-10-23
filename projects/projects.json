@@ -6,6 +6,37 @@
   ],
   "projects": [
     {
+      "id": "aiwatch",
+      "name": "aiwatch",
+      "category": "security",
+      "color": "amber",
+      "tagline": "Find, fix and continuously monitor AI-stack vulnerabilities",
+      "pitch": "Inventories an AI/LLM repo (ML dependencies, MCP servers, Hugging Face refs, model artifacts and risky loading code), matches it against live OSV.dev advisories and writes the fixes. A daily GitHub Action then reports what is new since yesterday, and why.",
+      "highlights": [
+        "Minimal safe version bumps, co-resolved with uv so the fixed set installs together, plus HF commit-SHA pins, weights_only=True, yaml.safe_load and pinned MCP servers",
+        "SQLite baseline separates newly disclosed advisories from known ones and from drift (new risky code, config or dependencies)",
+        "SARIF to code scanning, one tracking issue, HTML dashboard; OWASP LLM Top 10 2025 and MITRE ATLAS mappings"
+      ],
+      "stats": [
+        { "value": 272, "label": "findings auto-fixed · demo app", "note": "257 advisories → 0 after aiwatch fix" },
+        { "value": 129, "label": "newly disclosed, flagged vs baseline", "note": "158 known · next run: 3 drift + 1 introduced" },
+        { "value": 99.9, "decimals": 1, "suffix": "%", "label": "agreement with OSV.dev's matcher", "note": "899 / 900 pinned packages" },
+        { "value": 0.03, "decimals": 2, "suffix": " s", "label": "offline scan · demo app", "note": "live, cold cache: 4.7 s" }
+      ],
+      "pipeline": [
+        { "label": "Inventory", "sub": "deps · MCP · code · artifacts" },
+        { "label": "Match", "sub": "OSV.dev · GHSA · PYSEC · npm" },
+        { "label": "Fix", "sub": "co-resolved bumps · pins · flags" },
+        { "label": "Monitor", "branches": ["New", "Known", "Drift"] },
+        { "label": "Report", "sub": "SARIF · issue · dashboard" }
+      ],
+      "stack": ["Python", "OSV.dev API", "uv resolver", "SQLite", "SARIF 2.1", "OWASP LLM Top 10", "MITRE ATLAS", "GitHub Actions"],
+      "links": [
+        { "label": "GitHub repo", "url": "https://github.com/sushmit-gujar/aiwatch", "primary": true },
+        { "label": "Live dashboard", "url": "https://sushmit-gujar.github.io/aiwatch/" }
+      ]
+    },
+    {
       "id": "loadsafe",
       "name": "loadsafe",
       "category": "security",

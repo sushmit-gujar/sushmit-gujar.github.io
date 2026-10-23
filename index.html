@@ -299,6 +299,20 @@
       </a>
 
       <div class="cases projs">
+        <article class="case proj reveal" data-neon="amber" aria-labelledby="p0">
+          <header>
+            <p class="case-tag"><span class="dot d1"></span>Open source · AI security · Continuous monitoring</p>
+            <h3 id="p0">aiwatch</h3>
+            <p class="proj-pitch">Finds, fixes and continuously monitors vulnerabilities in AI/LLM application stacks. It inventories ML dependencies, MCP servers, Hugging Face model references, model artifacts and risky loading code, then checks them against live OSV.dev advisories.</p>
+          </header>
+          <dl>
+            <div><dt>Demonstrates</dt><dd>Advisory matching that is accurate enough to automate on: alias de-duplication and conservative range unions. Fixes it can apply on its own: minimal safe version bumps co-resolved with uv so the fixed set actually installs, plus commit-SHA pins for <code>from_pretrained</code>, <code>weights_only=True</code> and pinned MCP servers, each labelled safe or review. Monitoring over time: a SQLite baseline separates newly disclosed advisories from known ones and from drift, and a daily GitHub Action uploads SARIF, maintains one tracking issue and publishes a dashboard. Findings map to the OWASP LLM Top 10 2025 and MITRE ATLAS.</dd></div>
+            <div><dt>Results</dt><dd>The deliberately vulnerable demo app starts with 287 findings and 257 advisories. Against an earlier baseline, <strong>129</strong> of them are flagged as newly disclosed, and the next run catches <strong>4</strong> new risks (3 code drift, 1 introduced dependency). After <code>aiwatch fix</code>: <strong>257 → 0 advisories</strong>, with 272 findings resolved. The naive per-package bump does not resolve, while the co-resolved fix does. Local matching agrees with OSV.dev's own matcher on <strong>899/900</strong> pinned packages. Scans take <strong>0.03 s</strong> offline and 4.7 s live.</dd></div>
+          </dl>
+          <ul class="stack" aria-label="Stack"><li>Python</li><li>OSV.dev API</li><li>uv resolver</li><li>SQLite</li><li>SARIF 2.1</li><li>OWASP LLM Top 10</li><li>MITRE ATLAS</li><li>GitHub Actions</li></ul>
+          <p class="proj-links"><a class="btn btn-ghost btn-sm" href="https://github.com/sushmit-gujar/aiwatch" target="_blank" rel="noopener">GitHub repo <span aria-hidden="true">↗</span></a><a class="btn btn-ghost btn-sm" href="projects/#aiwatch">Pipeline &amp; results <span aria-hidden="true">→</span></a><a class="btn btn-ghost btn-sm" href="https://sushmit-gujar.github.io/aiwatch/" target="_blank" rel="noopener">Live dashboard <span aria-hidden="true">↗</span></a></p>
+        </article>
+
         <article class="case proj reveal" data-neon="cyan" aria-labelledby="p1">
           <header>
             <p class="case-tag"><span class="dot d1"></span>Open source · AI security · Supply chain</p>
