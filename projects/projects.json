@@ -1,10 +1,105 @@
 {
   "owner": "Sushmit Gujar",
   "categories": [
-    { "id": "security", "label": "AI security" },
-    { "id": "rag", "label": "RAG & evals" }
+    {
+      "id": "security",
+      "label": "AI security"
+    },
+    {
+      "id": "rag",
+      "label": "RAG & evals"
+    },
+    {
+      "id": "data",
+      "label": "Data engineering"
+    }
   ],
   "projects": [
+    {
+      "id": "floe",
+      "name": "floe",
+      "category": "data",
+      "color": "blue",
+      "tagline": "Streaming lakehouse on Kubernetes, up with one command",
+      "pitch": "Live Wikipedia edits flow through Redpanda, are validated against a data contract and land exactly once in Apache Iceberg on S3-compatible storage. dbt builds silver and gold behind a data-quality gate, and FastAPI serves the result. KEDA scales the processor on consumer lag, Prometheus and Grafana watch it, and CI deploys it all into kind.",
+      "highlights": [
+        "Exactly-once without trusting Kafka offsets: each batch's rows and Kafka offsets go into one Iceberg commit, with fencing against zombie replicas, so a SIGKILLed pod loses or duplicates nothing",
+        "Helm chart with generated secrets, non-root read-only containers, NetworkPolicies, KEDA on lag, CronJob transforms and compaction; Trivy gates the image and chart in CI",
+        "The dbt quality gate (17 tests) publishes gold only on a full pass, and it caught real duplicate events from overlapping producers during a rolling restart"
+      ],
+      "stats": [
+        {
+          "value": 30968,
+          "label": "events/s end to end · 1.2M burst",
+          "note": "KEDA 1→6 replicas · 1 pinned: 27,385/s"
+        },
+        {
+          "value": 2.39,
+          "decimals": 2,
+          "suffix": " s",
+          "label": "p95 produce → queryable in Iceberg",
+          "note": "2,000 ev/s steady · p50 1.36 s"
+        },
+        {
+          "value": 12.0,
+          "decimals": 1,
+          "suffix": " s",
+          "label": "burst start → 6 replicas ready",
+          "note": "first scale-out decision at 7.0 s"
+        },
+        {
+          "value": 0,
+          "label": "duplicates or losses after SIGKILL",
+          "note": "180,000 rows verified · replacement Ready in 5.4 s"
+        }
+      ],
+      "pipeline": [
+        {
+          "label": "Ingest",
+          "sub": "Wikimedia SSE · Redpanda"
+        },
+        {
+          "label": "Stream",
+          "sub": "contract · exactly-once"
+        },
+        {
+          "label": "Lake",
+          "branches": [
+            "Bronze",
+            "DLQ"
+          ]
+        },
+        {
+          "label": "Transform",
+          "sub": "dbt + DuckDB · 17 tests"
+        },
+        {
+          "label": "Serve",
+          "sub": "gold Iceberg · FastAPI"
+        }
+      ],
+      "stack": [
+        "Kubernetes",
+        "Docker",
+        "Helm",
+        "KEDA",
+        "Redpanda / Kafka",
+        "Apache Iceberg",
+        "dbt",
+        "DuckDB",
+        "MinIO",
+        "Prometheus",
+        "Grafana",
+        "Trivy"
+      ],
+      "links": [
+        {
+          "label": "GitHub repo",
+          "url": "https://github.com/sushmit-gujar/floe",
+          "primary": true
+        }
+      ]
+    },
     {
       "id": "aiwatch",
       "name": "aiwatch",
@@ -18,22 +113,77 @@
         "SARIF to code scanning, one tracking issue, HTML dashboard; OWASP LLM Top 10 2025 and MITRE ATLAS mappings"
       ],
       "stats": [
-        { "value": 272, "label": "findings auto-fixed · demo app", "note": "257 advisories → 0 after aiwatch fix" },
-        { "value": 129, "label": "newly disclosed, flagged vs baseline", "note": "158 known · next run: 3 drift + 1 introduced" },
-        { "value": 99.9, "decimals": 1, "suffix": "%", "label": "agreement with OSV.dev's matcher", "note": "899 / 900 pinned packages" },
-        { "value": 0.03, "decimals": 2, "suffix": " s", "label": "offline scan · demo app", "note": "live, cold cache: 4.7 s" }
+        {
+          "value": 272,
+          "label": "findings auto-fixed · demo app",
+          "note": "257 advisories → 0 after aiwatch fix"
+        },
+        {
+          "value": 129,
+          "label": "newly disclosed, flagged vs baseline",
+          "note": "158 known · next run: 3 drift + 1 introduced"
+        },
+        {
+          "value": 99.9,
+          "decimals": 1,
+          "suffix": "%",
+          "label": "agreement with OSV.dev's matcher",
+          "note": "899 / 900 pinned packages"
+        },
+        {
+          "value": 0.03,
+          "decimals": 2,
+          "suffix": " s",
+          "label": "offline scan · demo app",
+          "note": "live, cold cache: 4.7 s"
+        }
       ],
       "pipeline": [
-        { "label": "Inventory", "sub": "deps · MCP · code · artifacts" },
-        { "label": "Match", "sub": "OSV.dev · GHSA · PYSEC · npm" },
-        { "label": "Fix", "sub": "co-resolved bumps · pins · flags" },
-        { "label": "Monitor", "branches": ["New", "Known", "Drift"] },
-        { "label": "Report", "sub": "SARIF · issue · dashboard" }
+        {
+          "label": "Inventory",
+          "sub": "deps · MCP · code · artifacts"
+        },
+        {
+          "label": "Match",
+          "sub": "OSV.dev · GHSA · PYSEC · npm"
+        },
+        {
+          "label": "Fix",
+          "sub": "co-resolved bumps · pins · flags"
+        },
+        {
+          "label": "Monitor",
+          "branches": [
+            "New",
+            "Known",
+            "Drift"
+          ]
+        },
+        {
+          "label": "Report",
+          "sub": "SARIF · issue · dashboard"
+        }
       ],
-      "stack": ["Python", "OSV.dev API", "uv resolver", "SQLite", "SARIF 2.1", "OWASP LLM Top 10", "MITRE ATLAS", "GitHub Actions"],
+      "stack": [
+        "Python",
+        "OSV.dev API",
+        "uv resolver",
+        "SQLite",
+        "SARIF 2.1",
+        "OWASP LLM Top 10",
+        "MITRE ATLAS",
+        "GitHub Actions"
+      ],
       "links": [
-        { "label": "GitHub repo", "url": "https://github.com/sushmit-gujar/aiwatch", "primary": true },
-        { "label": "Live dashboard", "url": "https://sushmit-gujar.github.io/aiwatch/" }
+        {
+          "label": "GitHub repo",
+          "url": "https://github.com/sushmit-gujar/aiwatch",
+          "primary": true
+        },
+        {
+          "label": "Live dashboard",
+          "url": "https://sushmit-gujar.github.io/aiwatch/"
+        }
       ]
     },
     {
@@ -49,21 +199,68 @@
         "SARIF 2.1 + CycloneDX ML-BOM, mapped to OWASP LLM03/04 and MITRE ATLAS"
       ],
       "stats": [
-        { "value": 100, "suffix": "%", "label": "detection · 26-file PoC corpus", "note": "picklescan 33% · modelscan 44%" },
-        { "value": 0, "suffix": "%", "label": "false-positive rate · same corpus" },
-        { "value": 0, "suffix": "%", "label": "HIGH+ FPR · 5 public HF checkpoints", "note": "850.6 MB of weights" },
-        { "value": 3.2, "decimals": 1, "prefix": "~", "suffix": " GB/s", "label": "scan throughput" }
+        {
+          "value": 100,
+          "suffix": "%",
+          "label": "detection · 26-file PoC corpus",
+          "note": "picklescan 33% · modelscan 44%"
+        },
+        {
+          "value": 0,
+          "suffix": "%",
+          "label": "false-positive rate · same corpus"
+        },
+        {
+          "value": 0,
+          "suffix": "%",
+          "label": "HIGH+ FPR · 5 public HF checkpoints",
+          "note": "850.6 MB of weights"
+        },
+        {
+          "value": 3.2,
+          "decimals": 1,
+          "prefix": "~",
+          "suffix": " GB/s",
+          "label": "scan throughput"
+        }
       ],
       "pipeline": [
-        { "label": "Model artifact", "sub": ".pt · .pkl · .onnx · .gguf · HF repo" },
-        { "label": "Opcode disassembly", "sub": "symbolic pickle VM" },
-        { "label": "Rule engine", "sub": "callables · headers · loaders" },
-        { "label": "SARIF / ML-BOM", "sub": "OWASP LLM03/04 · ATLAS" },
-        { "label": "CI gate", "sub": "GitHub Action fails on HIGH" }
+        {
+          "label": "Model artifact",
+          "sub": ".pt · .pkl · .onnx · .gguf · HF repo"
+        },
+        {
+          "label": "Opcode disassembly",
+          "sub": "symbolic pickle VM"
+        },
+        {
+          "label": "Rule engine",
+          "sub": "callables · headers · loaders"
+        },
+        {
+          "label": "SARIF / ML-BOM",
+          "sub": "OWASP LLM03/04 · ATLAS"
+        },
+        {
+          "label": "CI gate",
+          "sub": "GitHub Action fails on HIGH"
+        }
       ],
-      "stack": ["Python", "pickletools", "SARIF 2.1", "CycloneDX 1.6", "OWASP LLM Top 10", "MITRE ATLAS", "GitHub Actions"],
+      "stack": [
+        "Python",
+        "pickletools",
+        "SARIF 2.1",
+        "CycloneDX 1.6",
+        "OWASP LLM Top 10",
+        "MITRE ATLAS",
+        "GitHub Actions"
+      ],
       "links": [
-        { "label": "GitHub repo", "url": "https://github.com/sushmit-gujar/loadsafe", "primary": true }
+        {
+          "label": "GitHub repo",
+          "url": "https://github.com/sushmit-gujar/loadsafe",
+          "primary": true
+        }
       ]
     },
     {
@@ -79,21 +276,67 @@
         "Hash-chained, tamper-evident audit log plus red-team, held-out and public-dataset evals"
       ],
       "stats": [
-        { "value": 30, "suffix": "/30", "label": "red-team attacks stopped · own suite" },
-        { "value": 12, "suffix": "/12", "label": "benign calls allowed · own suite" },
-        { "value": 6, "suffix": "/8", "label": "held-out attacks stopped · ensemble", "note": "rules alone: 3/8" },
-        { "value": 0.78, "decimals": 2, "prefix": "+", "suffix": " ms", "label": "p50 overhead per tool call" }
+        {
+          "value": 30,
+          "suffix": "/30",
+          "label": "red-team attacks stopped · own suite"
+        },
+        {
+          "value": 12,
+          "suffix": "/12",
+          "label": "benign calls allowed · own suite"
+        },
+        {
+          "value": 6,
+          "suffix": "/8",
+          "label": "held-out attacks stopped · ensemble",
+          "note": "rules alone: 3/8"
+        },
+        {
+          "value": 0.78,
+          "decimals": 2,
+          "prefix": "+",
+          "suffix": " ms",
+          "label": "p50 overhead per tool call"
+        }
       ],
       "pipeline": [
-        { "label": "Agent", "sub": "any MCP client" },
-        { "label": "Policy", "sub": "YAML allow-lists · arg rules" },
-        { "label": "Redact / scan", "sub": "PII · secrets · injection" },
-        { "label": "MCP server", "sub": "pinned tool definitions" },
-        { "label": "Audit log", "sub": "hash-chained · tamper-evident" }
+        {
+          "label": "Agent",
+          "sub": "any MCP client"
+        },
+        {
+          "label": "Policy",
+          "sub": "YAML allow-lists · arg rules"
+        },
+        {
+          "label": "Redact / scan",
+          "sub": "PII · secrets · injection"
+        },
+        {
+          "label": "MCP server",
+          "sub": "pinned tool definitions"
+        },
+        {
+          "label": "Audit log",
+          "sub": "hash-chained · tamper-evident"
+        }
       ],
-      "stack": ["Python", "MCP SDK", "JSON-RPC", "YAML policy-as-code", "NumPy classifier", "pytest", "GitHub Actions"],
+      "stack": [
+        "Python",
+        "MCP SDK",
+        "JSON-RPC",
+        "YAML policy-as-code",
+        "NumPy classifier",
+        "pytest",
+        "GitHub Actions"
+      ],
       "links": [
-        { "label": "GitHub repo", "url": "https://github.com/sushmit-gujar/mcp-warden", "primary": true }
+        {
+          "label": "GitHub repo",
+          "url": "https://github.com/sushmit-gujar/mcp-warden",
+          "primary": true
+        }
       ]
     },
     {
@@ -109,21 +352,74 @@
         "Paired bootstrap confidence intervals; routing by query type matters"
       ],
       "stats": [
-        { "value": 0.746, "decimals": 3, "label": "Full@5 · graph + dense PPR", "note": "vector RAG: 0.699" },
-        { "value": 4.7, "decimals": 1, "prefix": "+", "suffix": " pts", "label": "complete evidence chain", "note": "95% CI +2.9 … +6.5" },
-        { "value": 1000, "label": "HotpotQA questions", "note": "9,771 pooled passages" },
-        { "value": 2.4, "decimals": 1, "suffix": "×", "label": "latency cost", "note": "61 vs 26 ms p50" }
+        {
+          "value": 0.746,
+          "decimals": 3,
+          "label": "Full@5 · graph + dense PPR",
+          "note": "vector RAG: 0.699"
+        },
+        {
+          "value": 4.7,
+          "decimals": 1,
+          "prefix": "+",
+          "suffix": " pts",
+          "label": "complete evidence chain",
+          "note": "95% CI +2.9 … +6.5"
+        },
+        {
+          "value": 1000,
+          "label": "HotpotQA questions",
+          "note": "9,771 pooled passages"
+        },
+        {
+          "value": 2.4,
+          "decimals": 1,
+          "suffix": "×",
+          "label": "latency cost",
+          "note": "61 vs 26 ms p50"
+        }
       ],
       "pipeline": [
-        { "label": "Question", "sub": "HotpotQA multi-hop" },
-        { "label": "Retrievers", "branches": ["Vector", "Graph", "Hybrid"] },
-        { "label": "Reader", "sub": "extractive QA · ONNX" },
-        { "label": "Eval", "sub": "Full@5 · F1 · bootstrap CI" }
+        {
+          "label": "Question",
+          "sub": "HotpotQA multi-hop"
+        },
+        {
+          "label": "Retrievers",
+          "branches": [
+            "Vector",
+            "Graph",
+            "Hybrid"
+          ]
+        },
+        {
+          "label": "Reader",
+          "sub": "extractive QA · ONNX"
+        },
+        {
+          "label": "Eval",
+          "sub": "Full@5 · F1 · bootstrap CI"
+        }
       ],
-      "stack": ["Python", "ONNX Runtime", "bge-small", "BM25", "Personalized PageRank", "SciPy", "GitHub Actions"],
+      "stack": [
+        "Python",
+        "ONNX Runtime",
+        "bge-small",
+        "BM25",
+        "Personalized PageRank",
+        "SciPy",
+        "GitHub Actions"
+      ],
       "links": [
-        { "label": "GitHub repo", "url": "https://github.com/sushmit-gujar/hopscope", "primary": true },
-        { "label": "Live results explorer", "url": "https://sushmit-gujar.github.io/hopscope/" }
+        {
+          "label": "GitHub repo",
+          "url": "https://github.com/sushmit-gujar/hopscope",
+          "primary": true
+        },
+        {
+          "label": "Live results explorer",
+          "url": "https://sushmit-gujar.github.io/hopscope/"
+        }
       ]
     }
   ]

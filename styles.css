@@ -292,6 +292,7 @@ section { position: relative; }
 .projs .proj[data-neon="lime"] { --nc: #b8ff3c; --nrgb: 184,255,60; }
 .projs .proj[data-neon="magenta"] { --nc: #ff2fd2; --nrgb: 255,47,210; }
 .projs .proj[data-neon="amber"] { --nc: #ffb020; --nrgb: 255,176,32; }
+.projs .proj[data-neon="blue"] { --nc: #3d8bff; --nrgb: 61,139,255; }
 .projs .proj::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent 0 40%, #fff 48%, var(--nc) 52%, transparent 60% 100%) no-repeat, linear-gradient(90deg, transparent, rgba(var(--nrgb), .6), transparent); background-size: 300% 100%, 100% 100%; background-position: 100% 0, 0 0; animation: projTrace 4s linear infinite; }
 @keyframes projTrace { to { background-position: 0% 0, 0 0; } }
 .projs .proj::after { background: linear-gradient(140deg, var(--nc), transparent 45%, transparent 60%, var(--nc)); }

@@ -299,6 +299,20 @@
       </a>
 
       <div class="cases projs">
+        <article class="case proj reveal" data-neon="blue" aria-labelledby="pf">
+          <header>
+            <p class="case-tag"><span class="dot d1"></span>Open source · Data engineering · Kubernetes</p>
+            <h3 id="pf">floe</h3>
+            <p class="proj-pitch">A streaming lakehouse on Kubernetes that comes up with one command. Live Wikipedia edits flow through Redpanda, are checked against a data contract and land exactly once in Apache Iceberg. dbt builds silver and gold tables behind a data-quality gate, and a FastAPI service serves them.</p>
+          </header>
+          <dl>
+            <div><dt>Demonstrates</dt><dd>Exactly-once streaming without trusting Kafka offsets: each batch's rows and Kafka offsets are written in a single Iceberg commit, with fencing against zombie replicas. A Helm chart for the full platform (Redpanda, MinIO, the Lakekeeper Iceberg REST catalog, Postgres) with generated secrets, non-root read-only containers, NetworkPolicies, probes and limits. KEDA autoscaling on consumer lag, dbt + DuckDB transforms that publish gold only when all 17 tests pass, Prometheus and Grafana for throughput, lag, freshness and DQ pass rate, Trivy in CI, and an end-to-end test on kind.</dd></div>
+            <div><dt>Results</dt><dd>Measured on a single 8-vCPU kind node: produce → queryable latency <strong>p50 1.36 s, p95 2.39 s</strong> at 2,000 events/s. A 1.2M-event burst drained at <strong>30,968 events/s</strong> with KEDA scaling to 6 replicas in 12 s (27,385/s on 1 replica). After a <strong>SIGKILL</strong>, the replacement was Ready in 5.4 s with <strong>0 duplicates and 0 losses</strong> across 180,000 rows. dbt processes a 24 h window of 2.88M rows in 13.6 s inside a 1.5 GiB pod.</dd></div>
+          </dl>
+          <ul class="stack" aria-label="Stack"><li>Kubernetes</li><li>Docker</li><li>Helm</li><li>KEDA</li><li>Redpanda / Kafka</li><li>Apache Iceberg</li><li>dbt</li><li>DuckDB</li><li>Prometheus</li><li>Grafana</li><li>Trivy</li></ul>
+          <p class="proj-links"><a class="btn btn-ghost btn-sm" href="https://github.com/sushmit-gujar/floe" target="_blank" rel="noopener">GitHub repo <span aria-hidden="true">↗</span></a><a class="btn btn-ghost btn-sm" href="projects/#floe">Pipeline &amp; results <span aria-hidden="true">→</span></a></p>
+        </article>
+
         <article class="case proj reveal" data-neon="amber" aria-labelledby="p0">
           <header>
             <p class="case-tag"><span class="dot d1"></span>Open source · AI security · Continuous monitoring</p>
