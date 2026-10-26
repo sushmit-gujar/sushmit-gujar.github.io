@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sushmit-gujar.github.io/sitemap.xml
