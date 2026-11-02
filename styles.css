@@ -322,3 +322,19 @@ section { position: relative; }
 .sgroup h3 .small { font-weight: 500; font-size: .8rem; }
 .lede a { color: var(--text); text-decoration: underline; text-decoration-color: var(--accent, currentColor); text-underline-offset: 3px; }
 .lede a:hover { text-decoration-thickness: 2px; }
+
+/* 2026-11-02 refresh: leadership & delivery flow (pipeline style) */
+.leadership { padding-block: clamp(4rem, 8vw, 6.5rem) 0; }
+.flow { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; counter-reset: none; }
+.flow::before { content: ""; position: absolute; left: 1.5rem; right: 1.5rem; top: 2.1rem; height: 2px; background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3), var(--g4)); opacity: .55; z-index: 0; }
+.flow-step { position: relative; z-index: 1; padding: 1.4rem 1.3rem 1.35rem; border-radius: var(--r-md); border: 1px solid var(--border); background: var(--bg-2); background-image: linear-gradient(var(--surface), var(--surface)); }
+.flow-n { display: inline-grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; margin-bottom: .9rem; font-size: .82rem; font-weight: 500; color: #fff; background: var(--grad); box-shadow: 0 0 0 4px var(--bg), 0 0 18px rgba(59,130,246,.45); }
+.flow-step h3 { font-size: 1.06rem; margin-bottom: .45rem; }
+.flow-step p { color: var(--text-2); font-size: .91rem; line-height: 1.55; }
+.flow-note { margin-top: 1rem; padding: 1rem 1.25rem; border-radius: var(--r-md); border: 1px dashed var(--border-2); color: var(--text-2); font-size: .95rem; }
+.flow-note strong { color: var(--text); }
+@media (max-width: 1080px) { .flow { grid-template-columns: repeat(2, 1fr); } .flow::before { display: none; } }
+@media (max-width: 640px) {
+  .flow { grid-template-columns: 1fr; }
+  .flow::before { display: block; left: 2.5rem; right: auto; top: 1.5rem; bottom: 1.5rem; width: 2px; height: auto; background: linear-gradient(var(--g1), var(--g2), var(--g3), var(--g4)); }
+}
