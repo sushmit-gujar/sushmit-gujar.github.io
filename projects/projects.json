@@ -110,7 +110,7 @@
       "highlights": [
         "Minimal safe version bumps, co-resolved with uv so the fixed set installs together, plus HF commit-SHA pins, weights_only=True, yaml.safe_load and pinned MCP servers",
         "SQLite baseline separates newly disclosed advisories from known ones and from drift (new risky code, config or dependencies)",
-        "SARIF to code scanning, one tracking issue, HTML dashboard; OWASP LLM Top 10 2025 and MITRE ATLAS mappings"
+        "Ranks by real-world exploitation (CISA KEV + FIRST EPSS) before CVSS; SARIF to code scanning, one tracking issue, HTML dashboard; OWASP LLM Top 10 2025 and MITRE ATLAS mappings"
       ],
       "stats": [
         {
@@ -131,11 +131,10 @@
           "note": "899 / 900 pinned packages"
         },
         {
-          "value": 0.03,
-          "decimals": 2,
-          "suffix": " s",
-          "label": "offline scan · demo app",
-          "note": "live, cold cache: 4.7 s"
+          "value": 24,
+          "prefix": "#",
+          "label": "CVSS-queue rank of the one KEV-listed bug",
+          "note": "aiwatch ranks it #1 · 13/14 EPSS-hot outside CVSS top 10"
         }
       ],
       "pipeline": [
