@@ -191,19 +191,19 @@
       "name": "loadsafe",
       "category": "security",
       "color": "cyan",
-      "tagline": "ML model supply-chain security scanner",
-      "pitch": "Audits pickle, PyTorch, joblib, NumPy, safetensors, ONNX, GGUF and Keras artifacts, plus the Hugging Face repos that ship them, before anything gets loaded. Dependency scanners do the same for packages.",
+      "tagline": "Find, fix and monitor ML model supply-chain risk",
+      "pitch": "Audits pickle, PyTorch, joblib, NumPy, safetensors, ONNX, GGUF and Keras artifacts, plus the Hugging Face repos that ship them, before anything gets loaded. It then converts unsafe checkpoints to safetensors and watches pinned repos for drift.",
       "highlights": [
         "Symbolic pickle machine resolves STACK_GLOBAL / memo tricks and attributes every REDUCE to a callable",
-        "Repo checks: trust_remote_code, unpinned revisions, dangerous consumer-side loaders",
-        "SARIF 2.1 + CycloneDX ML-BOM, mapped to OWASP LLM03/04 and MITRE ATLAS"
+        "loadsafe fix: scan-first gate + data-only unpickler converts PyTorch checkpoints to safetensors, bit-identical to torch.load(weights_only=True)",
+        "ML-BOM diff flags format downgrades and new findings; a weekly monitor re-checks pinned HF repos. SARIF + CycloneDX, OWASP LLM03/04, MITRE ATLAS"
       ],
       "stats": [
         {
           "value": 100,
           "suffix": "%",
           "label": "detection · 26-file PoC corpus",
-          "note": "picklescan 33% · modelscan 44%"
+          "note": "picklescan 33% · modelscan 50%"
         },
         {
           "value": 0,
@@ -211,17 +211,15 @@
           "label": "false-positive rate · same corpus"
         },
         {
-          "value": 0,
-          "suffix": "%",
-          "label": "HIGH+ FPR · 5 public HF checkpoints",
-          "note": "850.6 MB of weights"
+          "value": 12,
+          "suffix": "/12",
+          "label": "malicious checkpoints refused by fix"
         },
         {
-          "value": 3.2,
-          "decimals": 1,
-          "prefix": "~",
-          "suffix": " GB/s",
-          "label": "scan throughput"
+          "value": 104,
+          "suffix": "/104",
+          "label": "tensors bit-identical to official safetensors",
+          "note": "all-MiniLM-L6-v2"
         }
       ],
       "pipeline": [
@@ -230,20 +228,20 @@
           "sub": ".pt · .pkl · .onnx · .gguf · HF repo"
         },
         {
-          "label": "Opcode disassembly",
-          "sub": "symbolic pickle VM"
+          "label": "Scan",
+          "sub": "symbolic pickle VM · header checks"
         },
         {
-          "label": "Rule engine",
-          "sub": "callables · headers · loaders"
+          "label": "Fix",
+          "sub": "data-only unpickler → safetensors"
         },
         {
           "label": "SARIF / ML-BOM",
           "sub": "OWASP LLM03/04 · ATLAS"
         },
         {
-          "label": "CI gate",
-          "sub": "GitHub Action fails on HIGH"
+          "label": "Monitor",
+          "sub": "BOM diff · weekly HF watch"
         }
       ],
       "stack": [
@@ -268,12 +266,12 @@
       "name": "mcp-warden",
       "category": "security",
       "color": "magenta",
-      "tagline": "Policy-as-code security gateway for MCP",
-      "pitch": "Sits between any agent and any Model Context Protocol server and enforces least privilege. Every decision lands in an audit trail you can hand to QA.",
+      "tagline": "Scan, harden and guard MCP servers",
+      "pitch": "Scans an MCP server's tools before you connect it, writes a least-privilege policy, then sits between any agent and the server to enforce it. A daily monitor re-scans the latest official servers for rug pulls.",
       "highlights": [
-        "YAML tool allow-lists and argument rules, PII / secret redaction, prompt-injection scanning",
-        "Tool-definition pinning against rug pulls; approvals bound to the exact call",
-        "Hash-chained, tamper-evident audit log plus red-team, held-out and public-dataset evals"
+        "scan / harden: poisoning, shadowing, code-exec and egress tools, lethal trifecta → default-deny policy + SHA-256 lockfile",
+        "Runtime gateway: argument rules, PII / secret redaction, injection scanning, approvals bound to the exact call",
+        "SARIF mapped to OWASP LLM / Agentic Top 10 and MITRE ATLAS; hash-chained audit log; red-team, held-out and real-server evals"
       ],
       "stats": [
         {
@@ -282,18 +280,18 @@
           "label": "red-team attacks stopped · own suite"
         },
         {
-          "value": 12,
-          "suffix": "/12",
-          "label": "benign calls allowed · own suite"
+          "value": 13,
+          "suffix": "/16",
+          "label": "poisoned tool definitions caught"
         },
         {
-          "value": 6,
-          "suffix": "/8",
-          "label": "held-out attacks stopped · ensemble",
-          "note": "rules alone: 3/8"
+          "value": 1,
+          "suffix": "/60",
+          "label": "held-out real-server tools with a FP",
+          "note": "Playwright, Context7, GitHub, Puppeteer"
         },
         {
-          "value": 0.78,
+          "value": 0.69,
           "decimals": 2,
           "prefix": "+",
           "suffix": " ms",
@@ -302,24 +300,24 @@
       ],
       "pipeline": [
         {
-          "label": "Agent",
-          "sub": "any MCP client"
-        },
-        {
-          "label": "Policy",
-          "sub": "YAML allow-lists · arg rules"
-        },
-        {
-          "label": "Redact / scan",
-          "sub": "PII · secrets · injection"
-        },
-        {
           "label": "MCP server",
-          "sub": "pinned tool definitions"
+          "sub": "tools/list"
         },
         {
-          "label": "Audit log",
-          "sub": "hash-chained · tamper-evident"
+          "label": "Scan",
+          "sub": "poisoning · capabilities · drift"
+        },
+        {
+          "label": "Harden",
+          "sub": "default-deny policy · lockfile"
+        },
+        {
+          "label": "Gateway",
+          "sub": "arg rules · redact · approvals"
+        },
+        {
+          "label": "Audit + monitor",
+          "sub": "hash chain · daily rug-pull scan"
         }
       ],
       "stack": [
@@ -327,6 +325,7 @@
         "MCP SDK",
         "JSON-RPC",
         "YAML policy-as-code",
+        "SARIF 2.1",
         "NumPy classifier",
         "pytest",
         "GitHub Actions"
