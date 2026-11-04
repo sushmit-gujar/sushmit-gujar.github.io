@@ -339,6 +339,81 @@
       ]
     },
     {
+      "id": "promptstrike",
+      "name": "promptstrike",
+      "category": "security",
+      "color": "violet",
+      "tagline": "Find → fix → verify red-teaming for LLM apps",
+      "pitch": "Attacks an LLM app config on a local model with 103 OWASP- and ATLAS-mapped attacks, writes the hardening for what actually failed, and proves each layer with held-out attacks, a utility suite and paired stats. The same scan gates CI and re-runs weekly.",
+      "highlights": [
+        "Remediation planner: secrets out of prompt, least-privilege tools, instruction-hierarchy prompt chosen on dev data only, spotlighting, deterministic input/output guards, tool-approval gate",
+        "Cumulative ablation with Wilson CIs, exact McNemar, dev/held-out splits for attacks and benign tasks, so over-refusal shows up",
+        "Gate, drift diff and SARIF to code scanning; composite GitHub Action and weekly real-model monitor. No API keys"
+      ],
+      "stats": [
+        {
+          "value": 39,
+          "suffix": "→8",
+          "label": "dev attacks succeeded /81 · Qwen2.5-1.5B"
+        },
+        {
+          "value": 16,
+          "suffix": "/16",
+          "label": "dev utility after hardening · 1.5B",
+          "note": "held-out 10/10"
+        },
+        {
+          "value": 12,
+          "suffix": "→5",
+          "label": "held-out attacks /22 · Qwen2.5-0.5B",
+          "note": "McNemar p = 0.016"
+        },
+        {
+          "value": 0,
+          "label": "leaks, exfil links or unapproved tool calls after hardening",
+          "note": "both models"
+        }
+      ],
+      "pipeline": [
+        {
+          "label": "Target",
+          "sub": "persona · tools · RAG"
+        },
+        {
+          "label": "Find",
+          "sub": "103 attacks · local GGUF"
+        },
+        {
+          "label": "Fix",
+          "sub": "prompt · guards · tool gate"
+        },
+        {
+          "label": "Verify",
+          "sub": "ablation · held-out · McNemar"
+        },
+        {
+          "label": "Gate + monitor",
+          "sub": "SARIF · weekly re-scan"
+        }
+      ],
+      "stack": [
+        "Python",
+        "llama.cpp",
+        "Qwen2.5 GGUF",
+        "SARIF 2.1",
+        "OWASP LLM / Agentic Top 10",
+        "MITRE ATLAS",
+        "GitHub Actions"
+      ],
+      "links": [
+        {
+          "label": "GitHub repo",
+          "url": "https://github.com/sushmit-gujar/promptstrike",
+          "primary": true
+        }
+      ]
+    },
+    {
       "id": "hopscope",
       "name": "hopscope",
       "category": "rag",

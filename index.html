@@ -402,6 +402,19 @@
           <ul class="stack" aria-label="Stack"><li>Python</li><li>MCP SDK v2</li><li>JSON-RPC</li><li>YAML policy-as-code</li><li>SARIF 2.1</li><li>NumPy classifier</li><li>pytest · GitHub Actions</li></ul>
           <p class="proj-links"><a class="btn btn-ghost btn-sm" href="https://github.com/sushmit-gujar/mcp-warden" target="_blank" rel="noopener">GitHub repo <span aria-hidden="true">↗</span></a><a class="btn btn-ghost btn-sm" href="projects/#mcp-warden">Pipeline &amp; results <span aria-hidden="true">→</span></a></p>
         </article>
+        <article class="case proj reveal" data-neon="violet" aria-labelledby="p4">
+          <header>
+            <p class="case-tag"><span class="dot d4"></span>Open source · AI security · Red teaming</p>
+            <h3 id="p4">promptstrike</h3>
+            <p class="proj-pitch">Find → fix → verify red-teaming for LLM apps and agents, on a local model with no API keys. It attacks an app config, writes the hardening for what actually failed, and proves each layer with numbers.</p>
+          </header>
+          <dl>
+            <div><dt>Demonstrates</dt><dd>A 103-attack corpus (direct and indirect injection, jailbreaks, obfuscation, prompt and data leakage, link exfiltration, output handling, excessive agency, RAG poisoning) mapped to the OWASP LLM and Agentic Top 10 and MITRE ATLAS. The remediation planner produces structural fixes, an instruction-hierarchy prompt chosen on dev data only, spotlighting, deterministic input and output guards, and a tool-approval gate. It then verifies them with a cumulative ablation, Wilson CIs, exact McNemar tests and held-out splits for both attacks and benign tasks. Ships with a CI gate, drift diff, SARIF, a GitHub Action and a weekly real-model monitor.</dd></div>
+            <div><dt>Results</dt><dd>On Qwen2.5-1.5B, dev attack success fell from <strong>39/81 to 8/81</strong> while dev utility rose from 14/16 to <strong>16/16</strong>. Held-out attacks went from 10/22 to 7/22, which isn't significant (p = 0.45). On Qwen2.5-0.5B, held-out attacks fell from <strong>12/22 to 5/22</strong> (p = 0.016). On both models, leaks, exfiltration links and unapproved tool calls dropped to <strong>0</strong>. A strict refusal prompt over-refused benign tasks (6/16 dev utility on 1.5B), so the prompt style is now selected for utility on dev data.</dd></div>
+          </dl>
+          <ul class="stack" aria-label="Stack"><li>Python</li><li>llama.cpp</li><li>Qwen2.5 GGUF</li><li>SARIF 2.1</li><li>OWASP LLM / Agentic Top 10</li><li>MITRE ATLAS</li><li>pytest · GitHub Actions</li></ul>
+          <p class="proj-links"><a class="btn btn-ghost btn-sm" href="https://github.com/sushmit-gujar/promptstrike" target="_blank" rel="noopener">GitHub repo <span aria-hidden="true">↗</span></a><a class="btn btn-ghost btn-sm" href="projects/#promptstrike">Pipeline &amp; results <span aria-hidden="true">→</span></a></p>
+        </article>
       </div>
     </section>
 
